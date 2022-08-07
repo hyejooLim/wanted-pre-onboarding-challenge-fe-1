@@ -112,7 +112,7 @@ const TodoItem = ({ id, title, content }) => {
   return (
     <>
       <TodoItemWrapper>
-        <Link key={id} to={`/todos/${id}`}>
+        <Link key={id} to={`/todos/${id}`} style={{ textDecoration: 'none' }}>
           <Title>{title}</Title>
           <Content>{content}</Content>
         </Link>
