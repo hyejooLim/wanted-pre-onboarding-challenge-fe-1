@@ -8,3 +8,5 @@
 * React
 * Ant Design
 * Styled Components
+* axios
+* prop-types
