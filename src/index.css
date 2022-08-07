@@ -11,6 +11,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #eeeeee;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 #root {
@@ -32,6 +37,7 @@ button:hover {
   cursor: pointer;
 }
 
+/* antd */
 .ant-btn {
   border: 0;
   outline: none;
@@ -43,6 +49,6 @@ button:hover {
   transform: scale(1.03);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+.ant-input {
+  outline: none;
 }

@@ -13,6 +13,7 @@ function App() {
         <Route path='/' element={<TodoLayout />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        {/* <Route path='/todos:id' element={<TodoDetail />} /> */}
       </Routes>
     </BrowserRouter>
   );
