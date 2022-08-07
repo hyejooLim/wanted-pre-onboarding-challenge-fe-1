@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import TodoItem from './TodoItem';
@@ -17,9 +16,7 @@ const TodoList = () => {
   return (
     <TodoListWrapper>
       {state?.map((todo) => (
-        <Link key={todo.id} to={`/todos/${todo.id}`}>
-          <TodoItem id={todo.id} title={todo.title} content={todo.content} />
-        </Link>
+        <TodoItem key={todo.id} id={todo.id} title={todo.title} content={todo.content} />
       ))}
     </TodoListWrapper>
   );
