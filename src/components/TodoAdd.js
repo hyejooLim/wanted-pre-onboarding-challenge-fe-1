@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { Input, Button } from 'antd';
-import { MdAdd } from 'react-icons/md';
 
 import useInput from '../hooks/useInput';
+import { TodosContext, CREATE } from '../TodoContext';
 
 const AddButton = styled(Button)`
   width: 62px;
@@ -94,6 +95,8 @@ const TodoAdd = () => {
   const [title, onChangeTitle, setTitle] = useInput('');
   const [content, onChangeContent, setContent] = useInput('');
 
+  const { dispatch } = useContext(TodosContext);
+
   const initalizeState = () => {
     setOpen(false);
     setTitle('');
@@ -122,7 +125,11 @@ const TodoAdd = () => {
         { title, content },
         { headers: { authorization: token } }
       );
-      console.log(result.data);
+
+      if (result.data) {
+        const { id, title, content } = result.data.data;
+        dispatch({ type: CREATE, id, title, content });
+      }
 
       initalizeState();
     } catch (err) {
@@ -135,7 +142,6 @@ const TodoAdd = () => {
       <AddButton onClick={onClickAddBtn}>
         <MdAdd />
       </AddButton>
-      {/* {open && <AddTodoModal />} */}
       {open && (
         <>
           <AddTodoModal>

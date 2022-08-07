@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
 import TodoItem from './TodoItem';
+import { TodosContext } from '../TodoContext';
 
 const TodoListWrapper = styled.div`
   flex: 1;
@@ -11,20 +11,18 @@ const TodoListWrapper = styled.div`
   overflow-y: auto;
 `;
 
-const TodoList = ({ todos }) => {
+const TodoList = () => {
+  const { state } = useContext(TodosContext);
+
   return (
     <TodoListWrapper>
-      {todos.map((todo) => (
+      {state?.map((todo) => (
         <Link key={todo.id} to={`/todos/${todo.id}`}>
           <TodoItem id={todo.id} title={todo.title} content={todo.content} />
         </Link>
       ))}
     </TodoListWrapper>
   );
-};
-
-TodoList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default TodoList;
