@@ -39,7 +39,7 @@ const TodoAdd = () => {
     setOpen(true);
   };
 
-  const onCancelAddTodo = () => {
+  const onCancel = () => {
     initalizeState();
   };
 
@@ -74,16 +74,16 @@ const TodoAdd = () => {
       <AddButton onClick={onClickAddBtn}>
         <MdAdd />
       </AddButton>
-      {open && (
-        <Modal
-          title={title}
-          onChangeTitle={onChangeTitle}
-          content={content}
-          onChangeContent={onChangeContent}
-          onAddTodo={onAddTodo}
-          onCancelAddTodo={onCancelAddTodo}
-        />
-      )}
+      <Modal
+        open={open}
+        mode='ADD'
+        title={title}
+        onChangeTitle={onChangeTitle}
+        content={content}
+        onChangeContent={onChangeContent}
+        onAddTodo={onAddTodo}
+        onCancel={onCancel}
+      />
     </>
   );
 };

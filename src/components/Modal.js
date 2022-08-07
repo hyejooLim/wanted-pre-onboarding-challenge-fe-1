@@ -72,43 +72,53 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Modal = ({ title, onChangeTitle, content, onChangeContent, onAddTodo, onCancelAddTodo }) => {
+const Modal = ({ open, mode, title, onChangeTitle, content, onChangeContent, onAddTodo, onUpdateTodo, onCancel }) => {
   return (
     <>
-      <AddTodoModal>
-        <InputWrapper>
-          <div className='title input_form'>
-            <label>Title</label>
-            <br />
-            <Input
-              className='title input'
-              placeholder='제목을 입력하세요.'
-              value={title}
-              onChange={onChangeTitle}
-              autoFocus
-            />
-          </div>
-          <div className='content input_form'>
-            <label>Content</label>
-            <br />
-            <Input
-              className='content input'
-              placeholder='내용을 입력하세요.'
-              value={content}
-              onChange={onChangeContent}
-            />
-          </div>
-        </InputWrapper>
-        <ButtonWrapper>
-          <Button className='add btn' onClick={onAddTodo}>
-            추가
-          </Button>
-          <Button className='cancel btn' onClick={onCancelAddTodo}>
-            취소
-          </Button>
-        </ButtonWrapper>
-      </AddTodoModal>
-      <ModalBackGround></ModalBackGround>
+      {open && (
+        <>
+          <AddTodoModal>
+            <InputWrapper>
+              <div className='title input_form'>
+                <label>Title</label>
+                <br />
+                <Input
+                  className='title input'
+                  placeholder='제목을 입력하세요.'
+                  value={title}
+                  onChange={onChangeTitle}
+                  autoFocus
+                />
+              </div>
+              <div className='content input_form'>
+                <label>Content</label>
+                <br />
+                <Input
+                  className='content input'
+                  placeholder='내용을 입력하세요.'
+                  value={content}
+                  onChange={onChangeContent}
+                />
+              </div>
+            </InputWrapper>
+            <ButtonWrapper>
+              {mode === 'ADD' ? (
+                <Button className='add btn' onClick={onAddTodo}>
+                  추가
+                </Button>
+              ) : (
+                <Button className='update btn' onClick={onUpdateTodo}>
+                  수정
+                </Button>
+              )}
+              <Button className='cancel btn' onClick={onCancel}>
+                취소
+              </Button>
+            </ButtonWrapper>
+          </AddTodoModal>
+          <ModalBackGround></ModalBackGround>
+        </>
+      )}
     </>
   );
 };
@@ -116,10 +126,13 @@ const Modal = ({ title, onChangeTitle, content, onChangeContent, onAddTodo, onCa
 export default Modal;
 
 Modal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  mode: PropTypes.string,
   title: PropTypes.string.isRequired,
   onChangeTitle: PropTypes.func.isRequired,
   content: PropTypes.string.isRequired,
   onChangeContent: PropTypes.func.isRequired,
   onAddTodo: PropTypes.func,
-  onCancelAddTodo: PropTypes.func,
+  onUpdateTodo: PropTypes.func,
+  onCancel: PropTypes.func,
 };

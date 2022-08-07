@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import styled from 'styled-components';
 
-import { DELETE, TodosContext } from '../TodoContext';
+import useInput from '../hooks/useInput';
+import { DELETE, TodosContext, UPDATE } from '../TodoContext';
+import Modal from './Modal';
 
 const TodoItemWrapper = styled.div`
   display: flex;
@@ -51,11 +54,48 @@ const ButtonWrapper = styled.div`
 `;
 
 const TodoItem = ({ id, title, content }) => {
+  const [open, setOpen] = useState(false);
+  const [newTitle, onChangeNewTitle, setNewTitle] = useInput(title);
+  const [newContent, onChangeNewContent, setNewContent] = useInput(content);
+
   const { dispatch } = useContext(TodosContext);
 
-  const onDeleteTodo = async (e) => {
-    e.preventDefault();
+  const onClickModifyBtn = () => {
+    setOpen(true);
+  };
 
+  const onCancel = () => {
+    setOpen(false);
+    setNewTitle(title);
+    setNewContent(content);
+  };
+
+  const onUpdateTodo = async () => {
+    try {
+      if (title === newTitle && content === newContent) {
+        alert('수정 사항이 없습니다.');
+        return;
+      }
+
+      const token = window.localStorage.getItem('token');
+
+      const result = await axios.put(
+        `http://localhost:8080/todos/${id}`,
+        { title: newTitle, content: newContent },
+        { headers: { authorization: token } }
+      );
+
+      if (result.data) {
+        dispatch({ type: UPDATE, id, title: newTitle, content: newContent });
+      }
+
+      setOpen(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const onDeleteTodo = async (e) => {
     try {
       const token = window.localStorage.getItem('token');
 
@@ -70,18 +110,32 @@ const TodoItem = ({ id, title, content }) => {
   };
 
   return (
-    <TodoItemWrapper>
-      <div>
-        <Title>{title}</Title>
-        <Content>{content}</Content>
-      </div>
-      <ButtonWrapper>
-        <Button className='modify btn'>수정</Button>
-        <Button className='delete btn' onClick={onDeleteTodo}>
-          삭제
-        </Button>
-      </ButtonWrapper>
-    </TodoItemWrapper>
+    <>
+      <TodoItemWrapper>
+        <Link key={id} to={`/todos/${id}`}>
+          <Title>{title}</Title>
+          <Content>{content}</Content>
+        </Link>
+        <ButtonWrapper>
+          <Button className='modify btn' onClick={onClickModifyBtn}>
+            수정
+          </Button>
+          <Button className='delete btn' onClick={onDeleteTodo}>
+            삭제
+          </Button>
+        </ButtonWrapper>
+      </TodoItemWrapper>
+      <Modal
+        open={open}
+        mode='UPDATE'
+        title={newTitle}
+        onChangeTitle={onChangeNewTitle}
+        content={newContent}
+        onChangeContent={onChangeNewContent}
+        onUpdateTodo={onUpdateTodo}
+        onCancel={onCancel}
+      ></Modal>
+    </>
   );
 };
 
