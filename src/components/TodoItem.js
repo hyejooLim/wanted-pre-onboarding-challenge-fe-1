@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import styled from 'styled-components';
+
+import { DELETE, TodosContext } from '../TodoContext';
 
 const TodoItemWrapper = styled.div`
   display: flex;
@@ -48,6 +51,24 @@ const ButtonWrapper = styled.div`
 `;
 
 const TodoItem = ({ id, title, content }) => {
+  const { dispatch } = useContext(TodosContext);
+
+  const onDeleteTodo = async (e) => {
+    e.preventDefault();
+
+    try {
+      const token = window.localStorage.getItem('token');
+
+      const result = await axios.delete(`http://localhost:8080/todos/${id}`, { headers: { authorization: token } });
+
+      if (result.data) {
+        dispatch({ type: DELETE, id });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <TodoItemWrapper>
       <div>
@@ -56,7 +77,9 @@ const TodoItem = ({ id, title, content }) => {
       </div>
       <ButtonWrapper>
         <Button className='modify btn'>수정</Button>
-        <Button className='delete btn'>삭제</Button>
+        <Button className='delete btn' onClick={onDeleteTodo}>
+          삭제
+        </Button>
       </ButtonWrapper>
     </TodoItemWrapper>
   );

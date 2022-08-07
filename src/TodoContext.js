@@ -8,7 +8,7 @@ export const TodosContext = createContext({
 export const INIT = 'INIT';
 export const CREATE = 'CREATE';
 export const UPDATE = 'UPDATE';
-export const REMOVE = 'REMOVE';
+export const DELETE = 'DELETE';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -24,7 +24,7 @@ const reducer = (state, action) => {
       return state.map((todo) =>
         todo.id === action.id ? { ...todo, title: action.title, content: action.content } : todo
       );
-    case REMOVE:
+    case DELETE:
       return state.filter((todo) => todo.id !== action.id);
     default:
       throw new Error('not invalid');
