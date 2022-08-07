@@ -18,7 +18,7 @@ const AddButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 40px;
+  margin: 20px auto;
 `;
 
 const ModalBackGround = styled.div`
