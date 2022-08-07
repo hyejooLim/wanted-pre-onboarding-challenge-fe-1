@@ -1,9 +1,46 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #eeeeee;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+button {
+  border: 0;
+  outline: none;
+}
+
+button.disabled:hover {
+  cursor: default;
+  transform: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.ant-btn {
+  border: 0;
+  outline: none;
+  transition: all 0.2s ease-in;
+}
+
+.ant-btn:hover {
+  cursor: pointer;
+  transform: scale(1.03);
 }
 
 code {
