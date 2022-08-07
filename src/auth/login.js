@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
+
+import useInput from '../hooks/useInput';
 
 const FromWrapper = styled.div`
   height: 100%;
@@ -44,18 +47,30 @@ const StyledButton = styled(Button)`
 `;
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, onChangeEmail] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
+  const onSubmitForm = async () => {
+    try {
+      const token = window.localStorage.getItem('token');
+      if (token) {
+        window.location.href = '/';
+        return;
+      }
+
+      const result = await axios.post('http://localhost:8080/users/login', { email, password });
+
+      if (result.data) {
+        const { token, message } = result.data;
+        window.localStorage.setItem('token', token);
+
+        alert(message);
+        window.location.href = '/';
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
-
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const onSubmitForm = () => {};
 
   return (
     <FromWrapper>
