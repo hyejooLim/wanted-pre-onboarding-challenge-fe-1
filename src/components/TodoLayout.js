@@ -46,6 +46,7 @@ const TodoLayout = () => {
       console.error(err);
     }
   };
+
   return (
     <TodoLayoutWrapper>
       <TodoHead />
