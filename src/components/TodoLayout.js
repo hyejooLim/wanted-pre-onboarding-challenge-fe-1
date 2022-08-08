@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { INIT, TodosContext } from '../TodoContext';
@@ -24,6 +24,14 @@ const TodoLayout = () => {
   const { dispatch } = useContext(TodosContext);
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token');
+
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      window.location.href = '/login';
+      return;
+    }
+
     handleGetTodos();
   }, []);
 
