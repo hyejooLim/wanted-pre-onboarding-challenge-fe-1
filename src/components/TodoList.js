@@ -11,11 +11,11 @@ const TodoListWrapper = styled.div`
 `;
 
 const TodoList = () => {
-  const { state } = useContext(TodosContext);
+  const { todos } = useContext(TodosContext);
 
   return (
     <TodoListWrapper>
-      {state?.map((todo) => (
+      {todos?.map((todo) => (
         <TodoItem key={todo.id} id={todo.id} title={todo.title} content={todo.content} />
       ))}
     </TodoListWrapper>

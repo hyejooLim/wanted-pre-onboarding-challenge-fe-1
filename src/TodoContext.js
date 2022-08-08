@@ -1,7 +1,7 @@
-import React, { useReducer, useRef, createContext, useMemo } from 'react';
+import React, { useReducer, createContext, useMemo } from 'react';
 
 export const TodosContext = createContext({
-  state: {},
+  todos: {},
   dispatch: () => {},
 });
 
@@ -10,7 +10,7 @@ export const CREATE = 'CREATE';
 export const UPDATE = 'UPDATE';
 export const DELETE = 'DELETE';
 
-const reducer = (state, action) => {
+const todosReducer = (state, action) => {
   switch (action.type) {
     case INIT:
       return (state = action.data);
@@ -34,9 +34,9 @@ const reducer = (state, action) => {
 const initialTodos = [];
 
 const TodoContext = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialTodos);
+  const [todos, dispatch] = useReducer(todosReducer, initialTodos);
 
-  const value = useMemo(() => ({ state, dispatch }), [state]);
+  const value = useMemo(() => ({ todos, dispatch }), [todos]);
 
   return (
     <>
