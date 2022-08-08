@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import axios from 'axios';
 import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { Button } from 'antd';
@@ -7,6 +6,7 @@ import { Button } from 'antd';
 import Modal from './Modal';
 import useInput from '../hooks/useInput';
 import { TodosContext, CREATE } from '../TodoContext';
+import { createTodo } from '../api/createTodo';
 
 const AddButton = styled(Button)`
   width: 62px;
@@ -50,16 +50,10 @@ const TodoAdd = () => {
         return;
       }
 
-      const token = window.localStorage.getItem('token');
+      const result = await createTodo({ title, content });
 
-      const result = await axios.post(
-        'http://localhost:8080/todos',
-        { title, content },
-        { headers: { authorization: token } }
-      );
-
-      if (result.data) {
-        const { id, title, content } = result.data.data;
+      if (result) {
+        const { id, title, content } = result.data;
         dispatch({ type: CREATE, id, title, content });
       }
 

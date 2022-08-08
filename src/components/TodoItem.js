@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import styled from 'styled-components';
 
 import useInput from '../hooks/useInput';
-import { DELETE, TodosContext, UPDATE } from '../TodoContext';
 import Modal from './Modal';
+import { updateTodo } from '../api/updateTodo';
+import { deleteTodo } from '../api/deleteTodo';
+import { DELETE, TodosContext, UPDATE } from '../TodoContext';
 
 const TodoItemWrapper = styled.div`
   display: flex;
@@ -77,15 +78,9 @@ const TodoItem = ({ id, title, content }) => {
         return;
       }
 
-      const token = window.localStorage.getItem('token');
+      const result = await updateTodo({ id, title: newTitle, content: newContent });
 
-      const result = await axios.put(
-        `http://localhost:8080/todos/${id}`,
-        { title: newTitle, content: newContent },
-        { headers: { authorization: token } }
-      );
-
-      if (result.data) {
+      if (result) {
         dispatch({ type: UPDATE, id, title: newTitle, content: newContent });
       }
 
@@ -97,11 +92,9 @@ const TodoItem = ({ id, title, content }) => {
 
   const onDeleteTodo = async (e) => {
     try {
-      const token = window.localStorage.getItem('token');
+      const result = await deleteTodo({ id });
 
-      const result = await axios.delete(`http://localhost:8080/todos/${id}`, { headers: { authorization: token } });
-
-      if (result.data) {
+      if (result) {
         dispatch({ type: DELETE, id });
       }
     } catch (err) {

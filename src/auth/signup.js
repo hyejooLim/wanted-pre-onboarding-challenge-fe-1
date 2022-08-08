@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
-import axios from 'axios';
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
 
 import useInput from '../hooks/useInput';
+import { signup } from '../api/signup';
 
 const FromWrapper = styled.div`
   height: 100%;
@@ -90,7 +90,7 @@ const Signup = () => {
 
   const onSubmitForm = async () => {
     try {
-      const result = await axios.post('http://localhost:8080/users/create', { email, password });
+      const result = await signup({ email, password });
 
       if (result.statusText === 'OK') {
         alert('회원가입이 완료되었습니다.');

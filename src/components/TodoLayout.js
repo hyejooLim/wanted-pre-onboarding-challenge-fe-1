@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 
 import { INIT, TodosContext } from '../TodoContext';
 import TodoHead from './TodoHead';
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
+import { getTodos } from '../api/getTodos';
 
 const TodoLayoutWrapper = styled.div`
   width: 375px;
@@ -21,23 +21,19 @@ const TodoLayoutWrapper = styled.div`
 `;
 
 const TodoLayout = () => {
-  const [todos, setTodos] = useState([]);
   const { dispatch } = useContext(TodosContext);
 
   useEffect(() => {
-    getTodos();
+    handleGetTodos();
   }, []);
 
-  const getTodos = async () => {
+  const handleGetTodos = async () => {
     try {
-      const token = window.localStorage.getItem('token');
+      const result = await getTodos();
 
-      const result = await axios.get('http://localhost:8080/todos', {
-        headers: { authorization: token },
-      });
-
-      setTodos(result.data.data);
-      dispatch({ type: INIT, data: result.data.data });
+      if (result) {
+        dispatch({ type: INIT, data: result.data });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -45,7 +41,7 @@ const TodoLayout = () => {
   return (
     <TodoLayoutWrapper>
       <TodoHead />
-      <TodoList todos={todos} />
+      <TodoList />
       <TodoAdd />
     </TodoLayoutWrapper>
   );

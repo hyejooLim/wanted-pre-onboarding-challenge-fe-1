@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
 
 import useInput from '../hooks/useInput';
+import { login } from '../api/login';
 
 const FromWrapper = styled.div`
   height: 100%;
@@ -54,14 +54,15 @@ const Login = () => {
     try {
       const token = window.localStorage.getItem('token');
       if (token) {
+        alert('이미 로그인했습니다.');
         window.location.href = '/';
         return;
       }
 
-      const result = await axios.post('http://localhost:8080/users/login', { email, password });
+      const result = await login({ email, password });
 
-      if (result.data) {
-        const { token, message } = result.data;
+      if (result) {
+        const { token, message } = result;
         window.localStorage.setItem('token', token);
 
         alert(message);
