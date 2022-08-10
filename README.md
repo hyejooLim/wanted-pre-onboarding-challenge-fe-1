@@ -6,10 +6,11 @@
 
 ## 🌼 기술 스택
 * React
+* TypeScript
 * Ant Design
 * Styled Components
 * axios
-* prop-types
+
 
 <br />
 
