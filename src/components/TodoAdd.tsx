@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { Button } from 'antd';
 
 import Modal from './Modal';
 import useInput from '../hooks/useInput';
-import { TodosContext, CREATE } from '../TodoContext';
-import { createTodo } from '../api/createTodo';
+import { CREATE, useTodosDispatch } from '../TodoContext';
+import createTodo from '../api/createTodo';
 
 const AddButton = styled(Button)`
   width: 62px;
@@ -23,20 +23,20 @@ const AddButton = styled(Button)`
 `;
 
 const TodoAdd = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [content, onChangeContent, setContent] = useInput('');
 
-  const { dispatch } = useContext(TodosContext);
+  const dispatch = useTodosDispatch();
 
   const initalizeState = () => {
-    setOpen(false);
+    setIsOpen(false);
     setTitle('');
     setContent('');
   };
 
   const onClickAddBtn = () => {
-    setOpen(true);
+    setIsOpen(true);
   };
 
   const onCancel = () => {
@@ -69,7 +69,7 @@ const TodoAdd = () => {
         <MdAdd />
       </AddButton>
       <Modal
-        open={open}
+        isOpen={isOpen}
         mode='ADD'
         title={title}
         onChangeTitle={onChangeTitle}

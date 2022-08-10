@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { FC, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { Input, Button } from 'antd';
-import PropTypes from 'prop-types';
+
+import { Mode } from '../types';
 
 const ModalBackGround = styled.div`
   width: 100%;
@@ -72,10 +73,32 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const Modal = ({ open, mode, title, onChangeTitle, content, onChangeContent, onAddTodo, onUpdateTodo, onCancel }) => {
+interface ModalProps {
+  isOpen: boolean;
+  mode: Mode;
+  title: string;
+  onChangeTitle: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  content: string;
+  onChangeContent: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onAddTodo?: () => void;
+  onUpdateTodo?: () => void;
+  onCancel: () => void;
+}
+
+const Modal: FC<ModalProps> = ({
+  isOpen,
+  mode,
+  title,
+  onChangeTitle,
+  content,
+  onChangeContent,
+  onAddTodo,
+  onUpdateTodo,
+  onCancel,
+}) => {
   return (
     <>
-      {open && (
+      {isOpen && (
         <>
           <AddTodoModal>
             <InputWrapper>
@@ -124,15 +147,3 @@ const Modal = ({ open, mode, title, onChangeTitle, content, onChangeContent, onA
 };
 
 export default Modal;
-
-Modal.propTypes = {
-  open: PropTypes.bool.isRequired,
-  mode: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  onChangeTitle: PropTypes.func.isRequired,
-  content: PropTypes.string.isRequired,
-  onChangeContent: PropTypes.func.isRequired,
-  onAddTodo: PropTypes.func,
-  onUpdateTodo: PropTypes.func,
-  onCancel: PropTypes.func,
-};

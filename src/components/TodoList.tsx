@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import TodoItem from './TodoItem';
-import { TodosContext } from '../TodoContext';
+import { useTodosState } from '../TodoContext';
 
 const TodoListWrapper = styled.div`
   flex: 1;
@@ -11,7 +11,7 @@ const TodoListWrapper = styled.div`
 `;
 
 const TodoList = () => {
-  const { todos } = useContext(TodosContext);
+  const todos = useTodosState();
 
   return (
     <TodoListWrapper>

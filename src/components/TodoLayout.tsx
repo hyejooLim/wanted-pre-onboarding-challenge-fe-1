@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { INIT, TodosContext } from '../TodoContext';
+import { INIT, useTodosDispatch } from '../TodoContext';
 import TodoHead from './TodoHead';
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
-import { getTodos } from '../api/getTodos';
+import getTodos from '../api/getTodos';
 
 const TodoLayoutWrapper = styled.div`
   width: 375px;
@@ -21,7 +21,7 @@ const TodoLayoutWrapper = styled.div`
 `;
 
 const TodoLayout = () => {
-  const { dispatch } = useContext(TodosContext);
+  const dispatch = useTodosDispatch();
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');

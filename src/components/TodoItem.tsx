@@ -1,14 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import styled from 'styled-components';
 
 import useInput from '../hooks/useInput';
 import Modal from './Modal';
-import { updateTodo } from '../api/updateTodo';
-import { deleteTodo } from '../api/deleteTodo';
-import { DELETE, TodosContext, UPDATE } from '../TodoContext';
+import updateTodo from '../api/updateTodo';
+import deleteTodo from '../api/deleteTodo';
+import { UPDATE, DELETE, useTodosDispatch } from '../TodoContext';
 
 const TodoItemWrapper = styled.div`
   display: flex;
@@ -54,19 +53,25 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const TodoItem = ({ id, title, content }) => {
-  const [open, setOpen] = useState(false);
+interface TodoItemProps {
+  id: string;
+  title: string;
+  content: string;
+}
+
+const TodoItem: FC<TodoItemProps> = ({ id, title, content }) => {
+  const [isOpen, setisOpen] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput(title);
   const [newContent, onChangeNewContent, setNewContent] = useInput(content);
 
-  const { dispatch } = useContext(TodosContext);
+  const dispatch = useTodosDispatch();
 
   const onClickModifyBtn = () => {
-    setOpen(true);
+    setisOpen(true);
   };
 
   const onCancel = () => {
-    setOpen(false);
+    setisOpen(false);
     setNewTitle(title);
     setNewContent(content);
   };
@@ -84,13 +89,13 @@ const TodoItem = ({ id, title, content }) => {
         dispatch({ type: UPDATE, id, title: newTitle, content: newContent });
       }
 
-      setOpen(false);
+      setisOpen(false);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const onDeleteTodo = async (e) => {
+  const onDeleteTodo = async () => {
     try {
       const result = await deleteTodo({ id });
 
@@ -119,8 +124,8 @@ const TodoItem = ({ id, title, content }) => {
         </ButtonWrapper>
       </TodoItemWrapper>
       <Modal
-        open={open}
-        mode='UPDATE'
+        isOpen={isOpen}
+        mode='EDIT'
         title={newTitle}
         onChangeTitle={onChangeNewTitle}
         content={newContent}
@@ -130,12 +135,6 @@ const TodoItem = ({ id, title, content }) => {
       ></Modal>
     </>
   );
-};
-
-TodoItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
 };
 
 export default TodoItem;

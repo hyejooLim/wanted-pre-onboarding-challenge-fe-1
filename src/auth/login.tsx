@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
 
 import useInput from '../hooks/useInput';
-import { login } from '../api/login';
+import login from '../api/login';
 
 const FromWrapper = styled.div`
   height: 100%;

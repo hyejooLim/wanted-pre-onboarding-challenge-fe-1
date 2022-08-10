@@ -1,11 +1,12 @@
 import axios from 'axios';
-
 import { BASE_URL, token } from '.';
 
-export const getTodos = async () => {
+const getTodos = async () => {
   const result = await axios.get(`${BASE_URL}/todos`, {
-    headers: { authorization: token },
+    headers: { authorization: token as string },
   });
 
   return result.data;
 };
+
+export default getTodos;
