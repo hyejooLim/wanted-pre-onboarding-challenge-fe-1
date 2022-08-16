@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 
-import Modal from './Modal';
-import useInput from '../hooks/public/useInput';
-import useCreateTodo from '../hooks/query/useCreateTodo';
-import { AddButton } from '../styles/ts/Todo/TodoAdd';
+import Modal from '../common/Modal';
+import useInput from '../../hooks/public/useInput';
+import useCreateTodo from '../../hooks/query/useCreateTodo';
+import { AddButton } from '../../styles/ts/Todo/TodoAdd';
 
 const TodoAdd = () => {
   const createTodo = useCreateTodo();

@@ -2,11 +2,11 @@ import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 
-import Modal from './Modal';
-import useInput from '../hooks/public/useInput';
-import useUpdateTodo from '../hooks/query/useUpdateTodo';
-import useDeleteTodo from '../hooks/query/useDeleteTodo';
-import { TodoItemWrapper, Title, Content, ButtonWrapper } from '../styles/ts/Todo/TodoItem';
+import Modal from '../common/Modal';
+import useInput from '../../hooks/public/useInput';
+import useUpdateTodo from '../../hooks/query/useUpdateTodo';
+import useDeleteTodo from '../../hooks/query/useDeleteTodo';
+import { TodoItemWrapper, Title, Content, ButtonWrapper } from '../../styles/ts/Todo/TodoItem';
 
 interface TodoItemProps {
   id: string;

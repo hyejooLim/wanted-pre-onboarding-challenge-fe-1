@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import TodoHead from './TodoHead';
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
-import { TodoLayoutWrapper } from '../styles/ts/Todo/TodoLayout';
+import { TodoLayoutWrapper } from '../../styles/ts/Todo/TodoLayout';
 
 const TodoLayout = () => {
   useEffect(() => {

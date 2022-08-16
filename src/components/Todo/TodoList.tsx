@@ -1,9 +1,9 @@
 import React from 'react';
 
 import TodoItem from './TodoItem';
-import useGetTodos from '../hooks/query/useGetTodos';
-import { TodoListWrapper } from '../styles/ts/Todo/TodoList';
-import { Todo } from '../types';
+import useGetTodos from '../../hooks/query/useGetTodos';
+import { TodoListWrapper } from '../../styles/ts/Todo/TodoList';
+import { Todo } from '../../types';
 
 const TodoList = () => {
   const { data } = useGetTodos();

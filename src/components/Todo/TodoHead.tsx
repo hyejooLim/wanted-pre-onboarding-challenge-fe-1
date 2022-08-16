@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 
-import { TodoHeadWrapper } from '../styles/ts/Todo/TodoHead';
+import { TodoHeadWrapper } from '../../styles/ts/Todo/TodoHead';
 
 const TodoHead = () => {
   const onLogout = () => {
