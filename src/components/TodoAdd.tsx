@@ -1,25 +1,10 @@
 import React, { useState } from 'react';
 import { MdAdd } from 'react-icons/md';
-import styled from 'styled-components';
-import { Button } from 'antd';
 
 import Modal from './Modal';
 import useInput from '../hooks/public/useInput';
 import useCreateTodo from '../hooks/query/useCreateTodo';
-
-const AddButton = styled(Button)`
-  width: 62px;
-  height: 62px;
-  font-size: 42px;
-  background-color: #13a085;
-  color: #fff;
-  border-radius: 50%;
-  border-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto;
-`;
+import { AddButton } from '../styles/ts/TodoAdd';
 
 const TodoAdd = () => {
   const createTodo = useCreateTodo();

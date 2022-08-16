@@ -1,50 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Form, Input, Button } from 'antd';
+import { Form } from 'antd';
 
 import useInput from '../hooks/public/useInput';
 import login from '../api/login';
-
-const FromWrapper = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .form {
-    margin: 0;
-    padding: 40px 100px;
-    background: #fff;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: 10px 8px 10px -2px rgba(0, 0, 0, 0.29);
-
-    .input_form {
-      margin-bottom: 20px;
-    }
-  }
-`;
-
-const StyledInput = styled(Input)`
-  border: 0;
-  outline: none;
-  height: 40px;
-  width: 260px;
-  font-size: 16px;
-  background-color: #eee;
-`;
-
-const StyledButton = styled(Button)`
-  color: #fff;
-  background-color: #13a085;
-  width: 70px;
-  height: 36px;
-  font-size: 15px;
-  margin: 20px 0;
-  border-radius: 8px;
-  transition: all 0.2s ease-in;
-`;
+import { FormWrapper, StyledInput, StyledButton } from '../styles/ts/login';
 
 const Login = () => {
   const [email, onChangeEmail] = useInput('');
@@ -74,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <FromWrapper>
+    <FormWrapper>
       <Form className='form' onFinish={onSubmitForm}>
         <div className='input_form'>
           <StyledInput type='email' value={email} onChange={onChangeEmail} placeholder='email' required />
@@ -97,7 +57,7 @@ const Login = () => {
           </Link>
         </div>
       </Form>
-    </FromWrapper>
+    </FormWrapper>
   );
 };
 

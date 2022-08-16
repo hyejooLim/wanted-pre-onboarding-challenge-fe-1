@@ -1,15 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import TodoItem from './TodoItem';
 import useGetTodos from '../hooks/query/useGetTodos';
+import { TodoListWrapper } from '../styles/ts/TodoList';
 import { Todo } from '../types';
-
-const TodoListWrapper = styled.div`
-  flex: 1;
-  margin-top: 20px;
-  overflow-y: auto;
-`;
 
 const TodoList = () => {
   const { data } = useGetTodos();
