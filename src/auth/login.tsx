@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
 
-import useInput from '../hooks/useInput';
+import useInput from '../hooks/public/useInput';
 import login from '../api/login';
 
 const FromWrapper = styled.div`

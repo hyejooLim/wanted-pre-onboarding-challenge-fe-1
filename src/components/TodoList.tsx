@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import TodoItem from './TodoItem';
-import { useTodosState } from '../TodoContext';
+import useGetTodos from '../hooks/query/useGetTodos';
+import { Todo } from '../types';
 
 const TodoListWrapper = styled.div`
   flex: 1;
@@ -11,11 +12,11 @@ const TodoListWrapper = styled.div`
 `;
 
 const TodoList = () => {
-  const todos = useTodosState();
+  const { data } = useGetTodos();
 
   return (
     <TodoListWrapper>
-      {todos?.map((todo) => (
+      {data?.data.map((todo: Todo) => (
         <TodoItem key={todo.id} id={todo.id} title={todo.title} content={todo.content} />
       ))}
     </TodoListWrapper>

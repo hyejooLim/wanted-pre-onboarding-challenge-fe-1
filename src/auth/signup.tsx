@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 import { Form, Input, Button } from 'antd';
 
-import useInput from '../hooks/useInput';
+import useInput from '../hooks/public/useInput';
 import signup from '../api/signup';
 
 const FromWrapper = styled.div`

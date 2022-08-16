@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 
 import Modal from './Modal';
-import useInput from '../hooks/useInput';
-import { CREATE, useTodosDispatch } from '../TodoContext';
-import createTodo from '../api/createTodo';
+import useInput from '../hooks/public/useInput';
+import useCreateTodo from '../hooks/query/useCreateTodo';
 
 const AddButton = styled(Button)`
   width: 62px;
@@ -23,11 +22,11 @@ const AddButton = styled(Button)`
 `;
 
 const TodoAdd = () => {
+  const createTodo = useCreateTodo();
+
   const [isOpen, setIsOpen] = useState(false);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [content, onChangeContent, setContent] = useInput('');
-
-  const dispatch = useTodosDispatch();
 
   const initalizeState = () => {
     setIsOpen(false);
@@ -50,13 +49,7 @@ const TodoAdd = () => {
         return;
       }
 
-      const result = await createTodo({ title, content });
-
-      if (result) {
-        const { id, title, content } = result.data;
-        dispatch({ type: CREATE, id, title, content });
-      }
-
+      createTodo.mutate({ title, content });
       initalizeState();
     } catch (err) {
       console.error(err);

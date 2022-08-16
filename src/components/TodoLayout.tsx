@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { INIT, useTodosDispatch } from '../TodoContext';
 import TodoHead from './TodoHead';
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
-import getTodos from '../api/getTodos';
 
 const TodoLayoutWrapper = styled.div`
   width: 375px;
@@ -21,8 +19,6 @@ const TodoLayoutWrapper = styled.div`
 `;
 
 const TodoLayout = () => {
-  const dispatch = useTodosDispatch();
-
   useEffect(() => {
     const token = window.localStorage.getItem('token');
 
@@ -31,21 +27,7 @@ const TodoLayout = () => {
       window.location.href = '/login';
       return;
     }
-
-    handleGetTodos();
   }, []);
-
-  const handleGetTodos = async () => {
-    try {
-      const result = await getTodos();
-
-      if (result) {
-        dispatch({ type: INIT, data: result.data });
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <TodoLayoutWrapper>

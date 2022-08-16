@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import styled from 'styled-components';
 
-import useInput from '../hooks/useInput';
 import Modal from './Modal';
-import updateTodo from '../api/updateTodo';
-import deleteTodo from '../api/deleteTodo';
-import { UPDATE, DELETE, useTodosDispatch } from '../TodoContext';
+import useInput from '../hooks/public/useInput';
+import useUpdateTodo from '../hooks/query/useUpdateTodo';
+import useDeleteTodo from '../hooks/query/useDeleteTodo';
 
 const TodoItemWrapper = styled.div`
   display: flex;
@@ -60,11 +59,12 @@ interface TodoItemProps {
 }
 
 const TodoItem: FC<TodoItemProps> = ({ id, title, content }) => {
+  const updateTodo = useUpdateTodo();
+  const deleteTodo = useDeleteTodo();
+
   const [isOpen, setisOpen] = useState(false);
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput(title);
   const [newContent, onChangeNewContent, setNewContent] = useInput(content);
-
-  const dispatch = useTodosDispatch();
 
   const onClickModifyBtn = () => {
     setisOpen(true);
@@ -83,12 +83,7 @@ const TodoItem: FC<TodoItemProps> = ({ id, title, content }) => {
         return;
       }
 
-      const result = await updateTodo({ id, title: newTitle, content: newContent });
-
-      if (result) {
-        dispatch({ type: UPDATE, id, title: newTitle, content: newContent });
-      }
-
+      updateTodo.mutate({ id, title: newTitle, content: newContent });
       setisOpen(false);
     } catch (err) {
       console.error(err);
@@ -97,11 +92,7 @@ const TodoItem: FC<TodoItemProps> = ({ id, title, content }) => {
 
   const onDeleteTodo = async () => {
     try {
-      const result = await deleteTodo({ id });
-
-      if (result) {
-        dispatch({ type: DELETE, id });
-      }
+      deleteTodo.mutate({ id });
     } catch (err) {
       console.error(err);
     }

@@ -1,14 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
 import Login from './auth/login';
 import Signup from './auth/signup';
-import { TodoProvider } from './TodoContext';
 import TodoLayout from './components/TodoLayout';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <TodoProvider>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<TodoLayout />} />
@@ -17,7 +19,7 @@ function App() {
           {/* <Route path='/todos:id' element={<TodoDetail />} /> */}
         </Routes>
       </BrowserRouter>
-    </TodoProvider>
+    </QueryClientProvider>
   );
 }
 
