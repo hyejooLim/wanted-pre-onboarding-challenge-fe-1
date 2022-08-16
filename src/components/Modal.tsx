@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent } from 'react';
 import { Input, Button } from 'antd';
 
 import { Mode } from '../types';
-import { ModalBackGround, AddTodoModal, InputWrapper, ButtonWrapper } from '../styles/ts/Modal';
+import { ModalBackGround, AddTodoModal, InputWrapper, ButtonWrapper } from '../styles/ts/common/Modal';
 
 interface ModalProps {
   isOpen: boolean;

@@ -4,7 +4,7 @@ import { Form } from 'antd';
 
 import useInput from '../hooks/public/useInput';
 import login from '../api/login';
-import { FormWrapper, StyledInput, StyledButton } from '../styles/ts/login';
+import { FormWrapper, StyledInput, StyledButton } from '../styles/ts/auth/login';
 
 const Login = () => {
   const [email, onChangeEmail] = useInput('');

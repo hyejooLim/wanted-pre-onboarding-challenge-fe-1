@@ -6,7 +6,7 @@ import Modal from './Modal';
 import useInput from '../hooks/public/useInput';
 import useUpdateTodo from '../hooks/query/useUpdateTodo';
 import useDeleteTodo from '../hooks/query/useDeleteTodo';
-import { TodoItemWrapper, Title, Content, ButtonWrapper } from '../styles/ts/TodoItem';
+import { TodoItemWrapper, Title, Content, ButtonWrapper } from '../styles/ts/Todo/TodoItem';
 
 interface TodoItemProps {
   id: string;

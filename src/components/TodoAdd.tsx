@@ -4,7 +4,7 @@ import { MdAdd } from 'react-icons/md';
 import Modal from './Modal';
 import useInput from '../hooks/public/useInput';
 import useCreateTodo from '../hooks/query/useCreateTodo';
-import { AddButton } from '../styles/ts/TodoAdd';
+import { AddButton } from '../styles/ts/Todo/TodoAdd';
 
 const TodoAdd = () => {
   const createTodo = useCreateTodo();

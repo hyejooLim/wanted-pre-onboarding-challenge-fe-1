@@ -2,7 +2,7 @@ import React from 'react';
 
 import TodoItem from './TodoItem';
 import useGetTodos from '../hooks/query/useGetTodos';
-import { TodoListWrapper } from '../styles/ts/TodoList';
+import { TodoListWrapper } from '../styles/ts/Todo/TodoList';
 import { Todo } from '../types';
 
 const TodoList = () => {
