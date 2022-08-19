@@ -5,7 +5,7 @@ const useUpdateTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation(updateTodo, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(['todos']);
     },
   });

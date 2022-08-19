@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 import TodoHead from './TodoHead';
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
-import { TodoLayoutWrapper } from '../../styles/ts/Todo/TodoLayout';
+import TodoDetail from './TodoDetail';
+import { Container, TodoListWrapper, TodoDetailWrapper } from '../../styles/ts/Todo/TodoLayout';
 
 const TodoLayout = () => {
   useEffect(() => {
@@ -17,11 +18,16 @@ const TodoLayout = () => {
   }, []);
 
   return (
-    <TodoLayoutWrapper>
-      <TodoHead />
-      <TodoList />
-      <TodoAdd />
-    </TodoLayoutWrapper>
+    <Container>
+      <TodoListWrapper>
+        <TodoHead />
+        <TodoList />
+        <TodoAdd />
+      </TodoListWrapper>
+      <TodoDetailWrapper>
+        <TodoDetail />
+      </TodoDetailWrapper>
+    </Container>
   );
 };
 

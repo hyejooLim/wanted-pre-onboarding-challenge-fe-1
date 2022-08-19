@@ -57,7 +57,7 @@ const TodoItem: FC<TodoItemProps> = ({ id, title, content }) => {
   return (
     <>
       <TodoItemWrapper>
-        <Link key={id} to={`/todos/${id}`} style={{ textDecoration: 'none' }}>
+        <Link key={id} to={`/${id}`} style={{ textDecoration: 'none' }}>
           <Title>{title}</Title>
           <Content>{content}</Content>
         </Link>
