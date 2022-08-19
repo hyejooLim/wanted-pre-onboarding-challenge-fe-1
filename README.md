@@ -6,6 +6,7 @@
 
 ## 🌼 기술 스택
 * React
+* React Query
 * TypeScript
 * Ant Design
 * Styled Components
